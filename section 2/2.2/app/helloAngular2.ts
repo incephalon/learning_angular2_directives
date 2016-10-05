@@ -1,9 +1,21 @@
-import { Component, View } from 'angular2/core';
+import { Component, View, Input, Output, EventEmitter } from 'angular2/core';
 
 @Component({
-  selector: 'hello-angular'
+  selector: 'hello-angular',
+  template: `
+  <p>Hello, {{who}}</p>
+  <button (click)="sayHello()">Say Hello</button>
+  `
+  // inputs:['who']
 })
-@View({
-  template: '<p>Hello, Angular2</p>'
-})
-export class HelloAngular2 {}
+
+export class HelloAngular2 {
+  @Input() who:string;
+  @Output() onSayHello: EventEmitter<string>=new EventEmitter();
+  
+  sayHello(){
+    this.onSayHello.emit(`Hello, ${this.who}`);
+
+  }
+
+}
